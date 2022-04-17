@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="byName">
+    <!-- 延迟任务适配器 -->
+    <bean id="taskAdepter" class="com.jd.tms.tfc.task.TaskAdepter">
+        <property name="taskHandlers">
+            <map>
+                <entry key="simple_task">
+                    <bean class="com.jd.tms.tfc.task.SimpleTaskHandler"/>
+                </entry>
+                <entry key="task_producer">
+                    <bean class="com.jd.tms.tfc.task.JmqProducerTaskHandler"/>
+                </entry>
+                <entry key="task_plan_arrive">
+                    <bean class="com.jd.tms.tfc.task.TransWorkPlanArriveTaskHandler"/>
+                </entry>
+                <entry key="task_require_pickup">
+                    <bean class="com.jd.tms.tfc.task.TransWorkRequirePickupTaskHandler"/>
+                </entry>
+                <entry key="task_updoor_transneed_confirm">
+                    <bean class="com.jd.tms.tfc.task.UpDoorTransNeedConfirmTaskHandler"/>
+                </entry>
+
+                <entry key="task_need_model_generate_order">
+                    <bean class="com.jd.tms.tfc.task.TransNeedModelGenTaskHandler"/>
+                </entry>
+
+                <entry key="task_carrier_notice">
+                    <bean class="com.jd.tms.tfc.task.TransCarrierNoticeTaskHandler"/>
+                </entry>
+                <entry key="task_try_work_item_cancellation">
+                    <bean class="com.jd.tms.tfc.task.TryWorkItemCancellationTaskHandler"/>
+                </entry>
+                <entry key="task_try_job_item_cancellation">
+                    <bean class="com.jd.tms.tfc.task.TryJobItemCancellationTaskHandler"/>
+                </entry>
+                <entry key="task_work_car_measured">
+                    <bean class="com.jd.tms.tfc.task.TransWorkCarMeasuredTaskHandler"/>
+                </entry>
+                <entry key="task_tfc_work_bill_delay">
+                    <bean class="com.jd.tms.tfc.task.TransWorkBillDelayTaskHandler"/>
+                </entry>
+                <entry key="task_tfc_work_bill_accept_delay">
+                    <bean class="com.jd.tms.tfc.task.TransWorkBillAcceptDelayTaskHandler"/>
+                </entry>
+            <!--    <entry key="task_trunk_branch_carrier_confirm_mail_notify">
+                    <bean class="com.jd.tms.tfc.task.TrunkBranchCarrierConfirmMailNotifyTaskHandler"/>
+                </entry>
+                <entry key="task_trunk_branch_carrier_auto_confirm_full">
+                    <bean class="com.jd.tms.tfc.task.TrunkBranchCarrierAutoConfirmFullTaskHandler"/>
+                </entry>
+                <entry key="task_trunk_branch_carrier_auto_confirm_ltl">
+                    <bean class="com.jd.tms.tfc.task.TrunkBranchCarrierAutoConfirmLtlTaskHandler"/>
+                </entry>-->
+                <entry key="task_trans_fee_status_change">
+                    <bean class="com.jd.tms.tfc.task.TransBillFeeChangeStatusTaskHandler"/>
+                </entry>
+                <entry key="task_trans_fee_approve_remind">
+                    <bean class="com.jd.tms.tfc.task.TransFeeApproveRemindTaskHandler"/>
+                </entry>
+                <entry key="task_trans_fee_bill_send_fee">
+                    <bean class="com.jd.tms.tfc.task.TransFeeBillSendFeeTaskHandler"/>
+                </entry>
+                <entry key="task_trans_send_mail_full">
+                    <bean class="com.jd.tms.tfc.task.TransSendMaillFullTaskHandler"/>
+                </entry>
+                <entry key="task_trans_send_mail_time_plan">
+                    <bean class="com.jd.tms.tfc.task.TransSendMaillTimePlanFullTaskHandler"/>
+                </entry>
+                <entry key="task_trans_send_mail_ltl">
+                    <bean class="com.jd.tms.tfc.task.TransSendMailLtlTaskHandler"/>
+                </entry>
+                <entry key="task_ferry_carrier_confirm_notice">
+                    <bean class="com.jd.tms.tfc.task.TransFeeBillConfirmNoticeTaskHandler"/>
+                </entry>
+                <entry key="task_trans_fee_bill_auto_confirm">
+                    <bean class="com.jd.tms.tfc.task.CarrierTransFeeAutoConfirmTaskHandler"/>
+                </entry>
+                <entry key="trans_work_begin_work_remind">
+                    <bean class="com.jd.tms.tfc.task.TransWorkBeginWorkRemindTaskHandler"/>
+                </entry>
+                <entry key="trans_work_end_work_remind">
+                    <bean class="com.jd.tms.tfc.task.TransWorkEndWorkRemindTaskHandler"/>
+                </entry>
+                <entry key="task_trans_fee_bill_check_task">
+                    <bean class="com.jd.tms.tfc.task.TransFeeBillCheckTaskHandler"/>
+                </entry>
+                <entry key="task_trans_fee_user_remind">
+                    <bean class="com.jd.tms.tfc.task.TransFeeBillCheckUserTaskHandler"/>
+                </entry>
+                <entry key="task_trans_calendar_task">
+                    <bean class="com.jd.tms.tfc.task.TransCalendarTaskHandler"/>
+                </entry>
+                <entry key="task_vehicle_log_calculate_etc_fee">
+                    <bean class="com.jd.tms.tfc.task.TransVehicleLogCalcluteEtcFeeTaskHandler"/>
+                </entry>
+                <entry key="task_tfc_trans_work_update_task_type_task">
+                    <bean class="com.jd.tms.tfc.task.TransWorkUpdateTaskTypeHandler"/>
+                </entry>
+                <entry key="task_trans_book_bill_auto_submit_fee">
+                    <bean class="com.jd.tms.tfc.task.TransBookAutoSubmitFeeTaskHandler"/>
+                </entry>
+                <entry key="task_trans_update_check_data">
+                    <bean class="com.jd.tms.tfc.task.TransUpdateCheckDataHandler"/>
+                </entry>
+                <entry key="task_history_data_archiving_mark">
+                    <bean class="com.jd.tms.tfc.task.HistoryDataArchivingMarkHandler"/>
+                </entry>
+                <entry key="task_submit_vehicle_fee">
+                    <bean class="com.jd.tms.tfc.task.TransVehicleSubmitFeeHandler"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
