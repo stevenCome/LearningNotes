@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-lazy-init="false" default-autowire="byName">
+
+	<!-- MultiQueue -->
+	<!-- Long类型的Memory队列（testPoll:count[1000] use time[175]ms）-->
+	<bean id="longMemoryLoadableMultiQueue" class="com.jd.common.queue.types.LongMemoryLoadableMultiQueue" init-method="start" destroy-method="stop" >
+		<property name="queueLoader" ref="simpleQueueLoader"/>
+	</bean>
+
+	<bean id="longJimdbLoadableMultiQueue" class="com.jd.common.queue.types.LongJimdbLoadableMultiQueue" init-method="start" destroy-method="stop" >
+		<property name="queueLoader" ref="simpleQueueLoader"/>
+		<property name="jimdbClient" ref="redisClient" />
+	</bean>
+
+	<bean id="simpleQueueLoader" class="com.jd.tms.tfc.common.queue.SimpleQueueLoader">
+		<property name="poolSizeMap">
+			<map>
+				<entry key="seq_trans_need_bill.minPoolSize" value="2000"/>
+				<entry key="seq_trans_need_bill.maxPoolSize" value="4000"/>
+
+				<entry key="seq_trans_plan_bill.minPoolSize" value="2000"/>
+				<entry key="seq_trans_plan_bill.maxPoolSize" value="4000"/>
+
+				<entry key="seq_trans_job_bill.minPoolSize" value="10"/>
+				<entry key="seq_trans_job_bill.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_work_bill.minPoolSize" value="10"/>
+				<entry key="seq_trans_work_bill.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_book_bill.minPoolSize" value="10"/>
+				<entry key="seq_trans_book_bill.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_book_bill_other.minPoolSize" value="10"/>
+				<entry key="seq_trans_book_bill_other.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_vehicle_log.minPoolSize" value="10"/>
+				<entry key="seq_trans_vehicle_log.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_vehicle_check.minPoolSize" value="10"/>
+				<entry key="seq_trans_vehicle_check.maxPoolSize" value="100"/>
+
+				<entry key="seq_trans_work_item_simple_code.minPoolSize" value="100"/>
+				<entry key="seq_trans_work_item_simple_code.maxPoolSize" value="300"/>
+			</map>
+		</property>
+	</bean>
+
+</beans>
